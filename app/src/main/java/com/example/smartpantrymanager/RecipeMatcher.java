@@ -200,7 +200,7 @@ public class RecipeMatcher {
         // Create a list of pantry item names for easy matching
         List<String> pantryNames = new ArrayList<>();
         for (PantryItem item : pantryItems) {
-            pantryNames.add(item.getName().toLowerCase());
+            pantryNames.add(item.getName().toLowerCase().trim());
         }
 
         for (Recipe recipe : allRecipes) {
@@ -209,9 +209,10 @@ public class RecipeMatcher {
             List<String> missing = new ArrayList<>();
 
             for (String ingredient : recipeIngredients) {
-                String ingredientLower = ingredient.toLowerCase();
+                String ingredientLower = ingredient.toLowerCase().trim();
                 boolean found = false;
                 for (String pantryName : pantryNames) {
+                    // More flexible matching: check if pantry name contains ingredient or vice versa
                     if (pantryName.contains(ingredientLower) || ingredientLower.contains(pantryName)) {
                         matching.add(ingredient);
                         found = true;

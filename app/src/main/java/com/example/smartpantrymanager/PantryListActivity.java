@@ -28,6 +28,10 @@ public class PantryListActivity extends AppCompatActivity {
         Button btnAdd = findViewById(R.id.btnAddIngredient);
 
         adapter = new PantryAdapter(this, pantryItems);
+        adapter.setOnDeleteClickListener(item -> {
+            dbHelper.deletePantryItem(item.getId());
+            loadPantryItems();
+        });
         listView.setAdapter(adapter);
 
         loadPantryItems();
