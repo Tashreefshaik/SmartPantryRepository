@@ -5,20 +5,19 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
-import com.google.android.material.textfield.TextInputEditText;
-
 import java.util.Calendar;
 
 public class AddEditIngredientActivity extends AppCompatActivity {
 
     private DatabaseHelper dbHelper;
-    private TextInputEditText etName, etQuantity, etExpiry;
+    private EditText etName, etQuantity, etExpiry, etUnit;
     private Spinner spinnerUnit;
     private int ingredientId = -1;
 
@@ -29,28 +28,13 @@ public class AddEditIngredientActivity extends AppCompatActivity {
 
         dbHelper = new DatabaseHelper(this);
 
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        if (getSupportActionBar() != null) {
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        }
-
-        etName = findViewById(R.id.etName);
+        etName = findViewById(R.id.etIngredientName);
         etQuantity = findViewById(R.id.etQuantity);
-        etExpiry = findViewById(R.id.etExpiry);
-        spinnerUnit = findViewById(R.id.spinnerUnit);
-
-        // Setup unit spinner
-        String[] units = {"kg", "g", "lb", "oz", "L", "ml", "cup", "tbsp", "tsp", "piece", "whole"};
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, units);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinnerUnit.setAdapter(adapter);
+        etUnit = findViewById(R.id.etUnit);
+        etExpiry = findViewById(R.id.etExpiryDate);
 
         // Check if editing existing ingredient
-        ingredientId = getIntent().getIntExtra("ingredient_id", -1);
-        if (getSupportActionBar() != null) {
-            getSupportActionBar().setTitle(ingredientId == -1 ? "Add Ingredient" : "Edit Ingredient");
-        }
+        ingredientId = getIntent().getIntExtra("ITEM_ID", -1);
         if (ingredientId != -1) {
             loadIngredientData();
         }
@@ -63,18 +47,16 @@ public class AddEditIngredientActivity extends AppCompatActivity {
     }
 
     private void loadIngredientData() {
-        PantryItem item = dbHelper.getPantryItem(ingredientId);
-        if (item != null) {
-            etName.setText(item.getName());
-            etQuantity.setText(String.valueOf(item.getQuantity()));
-            etExpiry.setText(item.getExpiryDate());
+        String name = getIntent().getStringExtra("ITEM_NAME");
+        int quantity = getIntent().getIntExtra("ITEM_QUANTITY", 0);
+        String unit = getIntent().getStringExtra("ITEM_UNIT");
+        String expiry = getIntent().getStringExtra("ITEM_EXPIRY");
 
-            // Find and select the unit in spinner
-            ArrayAdapter<String> adapter = (ArrayAdapter<String>) spinnerUnit.getAdapter();
-            int position = adapter.getPosition(item.getUnit());
-            if (position >= 0) {
-                spinnerUnit.setSelection(position);
-            }
+        if (name != null) {
+            etName.setText(name);
+            etQuantity.setText(String.valueOf(quantity));
+            etUnit.setText(unit);
+            etExpiry.setText(expiry);
         }
     }
 
@@ -98,7 +80,7 @@ public class AddEditIngredientActivity extends AppCompatActivity {
     private void saveIngredient() {
         String name = etName.getText().toString().trim();
         String quantityStr = etQuantity.getText().toString().trim();
-        String unit = spinnerUnit.getSelectedItem().toString();
+        String unit = etUnit.getText().toString().trim();
         String expiry = etExpiry.getText().toString().trim();
 
         // Validation
@@ -114,9 +96,9 @@ public class AddEditIngredientActivity extends AppCompatActivity {
             return;
         }
 
-        double quantity;
+        int quantity;
         try {
-            quantity = Double.parseDouble(quantityStr);
+            quantity = Integer.parseInt(quantityStr);
             if (quantity <= 0) {
                 etQuantity.setError("Quantity must be greater than 0");
                 Toast.makeText(this, "Quantity must be greater than 0", Toast.LENGTH_SHORT).show();
@@ -146,11 +128,5 @@ public class AddEditIngredientActivity extends AppCompatActivity {
         }
 
         finish();
-    }
-
-    @Override
-    public boolean onSupportNavigateUp() {
-        onBackPressed();
-        return true;
     }
 }
