@@ -66,7 +66,10 @@ public class SuggestedRecipesActivity extends AppCompatActivity {
     private void loadRecipes() {
         List<PantryItem> pantryItems = dbHelper.getAllPantryItems();
         RecipeMatcher matcher = new RecipeMatcher();
-        recipes = matcher.findMatchingRecipes(pantryItems);
+        List<Recipe> matchingRecipes = matcher.findMatchingRecipes(pantryItems);
+
+        recipes.clear();
+        recipes.addAll(matchingRecipes);
 
         if (recipes.isEmpty()) {
             if (pantryItems.isEmpty()) {
