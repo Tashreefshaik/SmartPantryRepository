@@ -69,6 +69,16 @@ public class SuggestedRecipesActivity extends AppCompatActivity {
         recipes = matcher.findMatchingRecipes(pantryItems);
 
         if (recipes.isEmpty()) {
+            if (pantryItems.isEmpty()) {
+                tvNoRecipes.setText("No recipes match your pantry yet - add more ingredients");
+            } else {
+                StringBuilder sb = new StringBuilder("No recipes match. You have: ");
+                for (int i = 0; i < pantryItems.size(); i++) {
+                    sb.append(pantryItems.get(i).getName());
+                    if (i < pantryItems.size() - 1) sb.append(", ");
+                }
+                tvNoRecipes.setText(sb.toString());
+            }
             tvNoRecipes.setVisibility(View.VISIBLE);
         } else {
             tvNoRecipes.setVisibility(View.GONE);

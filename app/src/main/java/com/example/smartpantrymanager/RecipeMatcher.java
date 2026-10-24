@@ -212,8 +212,15 @@ public class RecipeMatcher {
                 String ingredientLower = ingredient.toLowerCase().trim();
                 boolean found = false;
                 for (String pantryName : pantryNames) {
-                    // More flexible matching: check if pantry name contains ingredient or vice versa
-                    if (pantryName.contains(ingredientLower) || ingredientLower.contains(pantryName)) {
+                    // Very flexible matching: check if pantry name contains ingredient or vice versa
+                    // Also handle plural forms by removing trailing 's'
+                    String pantryRoot = pantryName.endsWith("s") ? pantryName.substring(0, pantryName.length() - 1) : pantryName;
+                    String ingredientRoot = ingredientLower.endsWith("s") ? ingredientLower.substring(0, ingredientLower.length() - 1) : ingredientLower;
+
+                    if (pantryName.contains(ingredientLower) ||
+                        ingredientLower.contains(pantryName) ||
+                        pantryRoot.contains(ingredientRoot) ||
+                        ingredientRoot.contains(pantryRoot)) {
                         matching.add(ingredient);
                         found = true;
                         break;
