@@ -84,6 +84,114 @@ public class RecipeMatcher {
                 "",
                 ""
         ));
+
+        // Recipe 9: Pancakes
+        allRecipes.add(new Recipe(
+                "Simple Pancakes",
+                "Flour, Milk, Eggs, Butter, Sugar",
+                "1. Mix flour, sugar, and baking powder\n2. Add milk and eggs\n3. Whisk until smooth\n4. Cook on buttered pan\n5. Flip when bubbles form",
+                "",
+                ""
+        ));
+
+        // Recipe 10: Scrambled Eggs
+        allRecipes.add(new Recipe(
+                "Scrambled Eggs",
+                "Eggs, Butter, Salt, Pepper",
+                "1. Melt butter in pan\n2. Beat eggs\n3. Pour into pan\n4. Stir gently until cooked\n5. Season and serve",
+                "",
+                ""
+        ));
+
+        // Recipe 11: Mashed Potatoes
+        allRecipes.add(new Recipe(
+                "Mashed Potatoes",
+                "Potatoes, Butter, Milk, Salt",
+                "1. Boil potatoes until tender\n2. Drain and mash\n3. Add butter and milk\n4. Season with salt\n5. Whip until smooth",
+                "",
+                ""
+        ));
+
+        // Recipe 12: Tomato Soup
+        allRecipes.add(new Recipe(
+                "Tomato Soup",
+                "Tomatoes, Onion, Garlic, Butter, Cream",
+                "1. Sauté onion and garlic in butter\n2. Add chopped tomatoes\n3. Simmer until soft\n4. Blend until smooth\n5. Stir in cream and serve",
+                "",
+                ""
+        ));
+
+        // Recipe 13: Pasta Carbonara
+        allRecipes.add(new Recipe(
+                "Pasta Carbonara",
+                "Spaghetti, Eggs, Bacon, Parmesan cheese, Black pepper",
+                "1. Cook pasta\n2. Fry bacon until crispy\n3. Beat eggs with cheese\n4. Mix hot pasta with bacon\n5. Add egg mixture and toss",
+                "",
+                ""
+        ));
+
+        // Recipe 14: French Toast
+        allRecipes.add(new Recipe(
+                "French Toast",
+                "Bread, Eggs, Milk, Butter, Cinnamon",
+                "1. Whisk eggs with milk and cinnamon\n2. Dip bread slices\n3. Fry in butter until golden\n4. Flip and cook other side\n5. Serve with syrup",
+                "",
+                ""
+        ));
+
+        // Recipe 15: Caesar Salad
+        allRecipes.add(new Recipe(
+                "Caesar Salad",
+                "Lettuce, Croutons, Parmesan cheese, Caesar dressing",
+                "1. Wash and chop lettuce\n2. Add croutons\n3. Sprinkle with parmesan\n4. Add dressing\n5. Toss and serve",
+                "",
+                ""
+        ));
+
+        // Recipe 16: Rice and Beans
+        allRecipes.add(new Recipe(
+                "Rice and Beans",
+                "Rice, Black beans, Onion, Garlic, Cumin",
+                "1. Cook rice\n2. Sauté onion and garlic\n3. Add beans and cumin\n4. Simmer until heated\n5. Serve over rice",
+                "",
+                ""
+        ));
+
+        // Recipe 17: Grilled Vegetables
+        allRecipes.add(new Recipe(
+                "Grilled Vegetables",
+                "Zucchini, Bell pepper, Eggplant, Olive oil, Salt",
+                "1. Slice vegetables\n2. Brush with olive oil\n3. Season with salt\n4. Grill until tender\n5. Serve hot",
+                "",
+                ""
+        ));
+
+        // Recipe 18: Quesadilla
+        allRecipes.add(new Recipe(
+                "Cheese Quesadilla",
+                "Tortilla, Cheese, Butter",
+                "1. Heat tortilla in pan\n2. Add cheese\n3. Fold in half\n4. Flip and cook until cheese melts\n5. Cut and serve",
+                "",
+                ""
+        ));
+
+        // Recipe 19: Smoothie
+        allRecipes.add(new Recipe(
+                "Fruit Smoothie",
+                "Banana, Yogurt, Milk, Honey",
+                "1. Add banana to blender\n2. Add yogurt and milk\n3. Blend until smooth\n4. Add honey to taste\n5. Serve chilled",
+                "",
+                ""
+        ));
+
+        // Recipe 20: Baked Potato
+        allRecipes.add(new Recipe(
+                "Baked Potato",
+                "Potato, Butter, Salt, Sour cream",
+                "1. Scrub potato\n2. Poke holes with fork\n3. Bake at 400°F for 1 hour\n4. Cut open and add butter\n5. Top with sour cream",
+                "",
+                ""
+        ));
     }
 
     public List<Recipe> findMatchingRecipes(List<PantryItem> pantryItems) {
@@ -115,8 +223,8 @@ public class RecipeMatcher {
                 }
             }
 
-            // Only add recipes that have at least one matching ingredient
-            if (!matching.isEmpty()) {
+            // Strict-matching: only add recipes that have ALL ingredients present
+            if (missing.isEmpty()) {
                 Recipe matchedRecipe = new Recipe(
                         recipe.getName(),
                         recipe.getIngredients(),
