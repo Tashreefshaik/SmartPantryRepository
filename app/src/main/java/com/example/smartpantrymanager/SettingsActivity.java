@@ -1,7 +1,6 @@
 package com.example.smartpantrymanager;
 
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 import androidx.appcompat.app.AlertDialog;
@@ -17,19 +16,9 @@ public class SettingsActivity extends AppCompatActivity {
         Button btnClearData = findViewById(R.id.btnClearData);
         Button btnBack = findViewById(R.id.btnBack);
 
-        btnClearData.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showClearDataDialog();
-            }
-        });
+        btnClearData.setOnClickListener(v -> showClearDataDialog());
 
-        btnBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
+        btnBack.setOnClickListener(v -> finish());
     }
 
     private void showClearDataDialog() {

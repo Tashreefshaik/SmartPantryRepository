@@ -1,7 +1,6 @@
 package com.example.smartpantrymanager;
 
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
@@ -32,11 +31,6 @@ public class RecipeDetailActivity extends AppCompatActivity {
         tvMatching.setText("You have: " + matching);
         tvMissing.setText("You need: " + missing);
 
-        btnBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
+        btnBack.setOnClickListener(v -> finish());
     }
 }

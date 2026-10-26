@@ -35,25 +35,17 @@ public class SuggestedRecipesActivity extends AppCompatActivity {
 
         loadRecipes();
 
-        btnBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
+        btnBack.setOnClickListener(v -> finish());
 
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Recipe recipe = recipes.get(position);
-                Intent intent = new Intent(SuggestedRecipesActivity.this, RecipeDetailActivity.class);
-                intent.putExtra("RECIPE_NAME", recipe.getName());
-                intent.putExtra("RECIPE_INGREDIENTS", recipe.getIngredients());
-                intent.putExtra("RECIPE_INSTRUCTIONS", recipe.getInstructions());
-                intent.putExtra("RECIPE_MATCHING", recipe.getMatchingIngredients());
-                intent.putExtra("RECIPE_MISSING", recipe.getMissingIngredients());
-                startActivity(intent);
-            }
+        listView.setOnItemClickListener((parent, view, position, id) -> {
+            Recipe recipe = recipes.get(position);
+            Intent intent = new Intent(SuggestedRecipesActivity.this, RecipeDetailActivity.class);
+            intent.putExtra("RECIPE_NAME", recipe.getName());
+            intent.putExtra("RECIPE_INGREDIENTS", recipe.getIngredients());
+            intent.putExtra("RECIPE_INSTRUCTIONS", recipe.getInstructions());
+            intent.putExtra("RECIPE_MATCHING", recipe.getMatchingIngredients());
+            intent.putExtra("RECIPE_MISSING", recipe.getMissingIngredients());
+            startActivity(intent);
         });
     }
 

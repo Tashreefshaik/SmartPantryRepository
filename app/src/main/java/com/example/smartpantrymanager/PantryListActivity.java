@@ -36,36 +36,27 @@ public class PantryListActivity extends AppCompatActivity {
 
         loadPantryItems();
 
-        btnAdd.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(PantryListActivity.this, AddEditIngredientActivity.class);
-                startActivity(intent);
-            }
+        btnAdd.setOnClickListener(v -> {
+            Intent intent = new Intent(PantryListActivity.this, AddEditIngredientActivity.class);
+            startActivity(intent);
         });
 
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                PantryItem item = pantryItems.get(position);
-                Intent intent = new Intent(PantryListActivity.this, AddEditIngredientActivity.class);
-                intent.putExtra("ITEM_ID", item.getId());
-                intent.putExtra("ITEM_NAME", item.getName());
-                intent.putExtra("ITEM_QUANTITY", item.getQuantity());
-                intent.putExtra("ITEM_UNIT", item.getUnit());
-                intent.putExtra("ITEM_EXPIRY", item.getExpiryDate());
-                startActivity(intent);
-            }
+        listView.setOnItemClickListener((parent, view, position, id) -> {
+            PantryItem item = pantryItems.get(position);
+            Intent intent = new Intent(PantryListActivity.this, AddEditIngredientActivity.class);
+            intent.putExtra("ITEM_ID", item.getId());
+            intent.putExtra("ITEM_NAME", item.getName());
+            intent.putExtra("ITEM_QUANTITY", item.getQuantity());
+            intent.putExtra("ITEM_UNIT", item.getUnit());
+            intent.putExtra("ITEM_EXPIRY", item.getExpiryDate());
+            startActivity(intent);
         });
 
-        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-            @Override
-            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                PantryItem item = pantryItems.get(position);
-                dbHelper.deletePantryItem(item.getId());
-                loadPantryItems();
-                return true;
-            }
+        listView.setOnItemLongClickListener((parent, view, position, id) -> {
+            PantryItem item = pantryItems.get(position);
+            dbHelper.deletePantryItem(item.getId());
+            loadPantryItems();
+            return true;
         });
     }
 
