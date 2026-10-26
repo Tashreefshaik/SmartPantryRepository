@@ -17,28 +17,19 @@ public class MainActivity extends AppCompatActivity {
         Button btnRecipes = findViewById(R.id.btnRecipes);
         Button btnSettings = findViewById(R.id.btnSettings);
 
-        btnPantry.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, PantryListActivity.class);
-                startActivity(intent);
-            }
+        btnPantry.setOnClickListener(v -> {
+            Intent intent = new Intent(MainActivity.this, PantryListActivity.class);
+            startActivity(intent);
         });
 
-        btnRecipes.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, SuggestedRecipesActivity.class);
-                startActivity(intent);
-            }
+        btnRecipes.setOnClickListener(v -> {
+            Intent intent = new Intent(MainActivity.this, SuggestedRecipesActivity.class);
+            startActivity(intent);
         });
 
-        btnSettings.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, SettingsActivity.class);
-                startActivity(intent);
-            }
+        btnSettings.setOnClickListener(v -> {
+            Intent intent = new Intent(MainActivity.this, SettingsActivity.class);
+            startActivity(intent);
         });
     }
 }
